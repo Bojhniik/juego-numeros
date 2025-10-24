@@ -1,18 +1,35 @@
-.container {
+/* CSS Adaptado para el tutorial de Signals 
+  (Mantiene tu tema rojo de #dd0031)
+*/
+
+/* 1. Renombrado de .container a .game-container */
+.game-container {
   max-width: 600px;
-  margin: 0 auto;
+  margin: 30px auto;
   padding: 20px;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   text-align: center;
 }
 
-h1 {
-  color: #dd0031;
-  font-size: 2.5rem;
+/* 2. Estilos para el nuevo Header */
+.game-header {
   margin-bottom: 30px;
 }
 
-.game-area {
+.game-title {
+  color: #dd0031;
+  font-size: 2.5rem;
+  margin-bottom: 10px;
+}
+
+.game-subtitle {
+  font-size: 1.2rem;
+  color: #666;
+  margin: 0;
+}
+
+/* 3. Renombrado de .game-area a .game-board */
+.game-board {
   background: white;
   padding: 40px;
   border-radius: 15px;
@@ -21,69 +38,208 @@ h1 {
   border-left: 5px solid #dd0031;
 }
 
-.numero-display {
+/* 4. Estilos para el nuevo Status Panel (usa el estilo de .intentos) */
+.status-panel {
+  display: flex;
+  justify-content: space-around;
+  background-color: #f8f9fa;
+  padding: 15px;
+  border-radius: 10px;
+  margin-bottom: 30px;
+}
+.status-item {
+  display: flex;
+  flex-direction: column;
+}
+.status-label {
+  font-size: 0.9rem;
+  color: #666;
+}
+.status-value {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #333;
+}
+
+/* 5. Adaptado de .numero-display a .number-display (ahora con hijos) */
+.number-display {
+  margin: 20px 0;
+  padding: 20px;
+  border-radius: 10px;
+}
+.number-label {
+  font-size: 1.2rem;
+  color: #666;
+}
+.number-value {
   font-size: 4rem;
   font-weight: bold;
   color: #dd0031;
-  margin: 20px 0;
+  margin: 10px 0;
   text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
 }
 
-.mensaje {
+/* 6. Renombrado de .mensaje a .message-panel */
+.message-panel {
   font-size: 1.4rem;
   margin: 20px 0;
   min-height: 60px;
   display: flex;
   align-items: center;
   justify-content: center;
+  font-weight: bold;
+  border-radius: 8px;
+  padding: 10px;
+}
+/* Nuevo estilo para cuando ganas */
+.message-panel.success {
+  background-color: #d4edda;
+  color: #155724;
+  border: 1px solid #c3e6cb;
 }
 
-.btn-jugar {
-  background-color: #dd0031;
-  color: white;
+/* 7. Estilos para los botones (btn-jugar ahora es .btn-primary) */
+.game-controls {
+  margin: 30px 0;
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Clase base para botones */
+.btn {
   padding: 15px 30px;
   border: none;
   border-radius: 30px;
   font-size: 1.2rem;
   cursor: pointer;
   transition: all 0.3s ease;
-  margin: 20px;
+  margin: 0;
+  text-decoration: none;
 }
-
-.btn-jugar:hover {
-  background-color: #c50028;
+.btn:hover:not(:disabled) {
   transform: translateY(-3px);
   box-shadow: 0 6px 12px rgba(0,0,0,0.2);
 }
-
-.intentos {
-  background-color: #f8f9fa;
-  padding: 10px 20px;
-  border-radius: 20px;
-  color: #666;
-  margin: 20px 0;
+.btn:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
 }
 
+/* Botón principal (antes .btn-jugar) */
+.btn-primary {
+  background-color: #dd0031;
+  color: white;
+}
+.btn-primary:hover:not(:disabled) {
+  background-color: #c50028;
+}
+
+/* Botón secundario (este ya coincidía) */
 .btn-secondary {
-  display: inline-block;
   background-color: #6c757d;
   color: white;
-  padding: 10px 20px;
-  text-decoration: none;
-  border-radius: 20px;
-  transition: background-color 0.3s ease;
+  font-size: 1rem; /* Un poco más pequeño */
+  padding: 12px 25px;
 }
-
 .btn-secondary:hover {
   background-color: #5a6268;
 }
 
-/* Animación para números ganadores */
-.ganador {
+/* 8. Estilos para el nuevo Stats Panel (usa el estilo de .intentos) */
+.stats-panel {
+  background-color: #f8f9fa;
+  padding: 20px;
+  border-radius: 10px;
+  color: #666;
+  margin-top: 30px;
+  text-align: left;
+}
+.stats-panel h3 {
+  margin-top: 0;
+  margin-bottom: 15px;
+  color: #333;
+  text-align: center;
+}
+.stat-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 0;
+  border-bottom: 1px solid #eee;
+}
+.stat-item:last-child {
+  border-bottom: none;
+}
+
+/* 9. Estilos para el nuevo Footer y .btn-outline */
+.game-footer {
+  margin-top: 30px;
+}
+.btn-outline {
+  display: inline-block;
+  background-color: transparent;
+  color: #6c757d;
+  border: 2px solid #6c757d;
+  padding: 10px 20px;
+  font-size: 1rem;
+  text-decoration: none;
+  border-radius: 20px;
+  transition: all 0.3s ease;
+}
+.btn-outline:hover {
+  background-color: #6c757d;
+  color: white;
+}
+
+/* 10. Adaptada la animación (ahora es .winner y anima al hijo) */
+.winner .number-value {
   animation: celebrar 0.6s ease-in-out infinite alternate;
 }
 
 @keyframes celebrar {
   from { transform: scale(1) rotate(-2deg); }
   to { transform: scale(1.1) rotate(2deg); }
+}
+
+/* ... (Todo el CSS anterior va aquí) ... */
+
+
+/* === CSS NUEVO PARA EL HISTORIAL === */
+
+.historial-panel {
+  background-color: #fff;
+  padding: 20px 30px;
+  border-radius: 15px;
+  box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+  margin-bottom: 30px;
+  /* Usamos el color rojo para el borde */
+  border-top: 4px solid #dd0031; 
+}
+
+.historial-panel h3 {
+  margin-top: 0;
+  margin-bottom: 20px;
+  color: #dd0031;
+}
+
+.historial-numeros {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: center;
+}
+
+/* Usamos el estilo 'intentos' que ya tenías */
+.historial-numeros span {
+  display: inline-block;
+  padding: 5px 12px;
+  background-color: #f8f9fa;
+  border-radius: 20px;
+  color: #666;
+  font-weight: bold;
+  min-width: 30px;
+  font-size: 0.9rem;
 }

@@ -1,92 +1,87 @@
 // src/app/juego-numeros/juego-numeros.ts
 
-import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common'; // <-- Para *ngIf
-import { FormsModule } from '@angular/forms';  // <-- Para [(ngModel)]
+// 1. IMPORTA RouterLink (¡NUEVO!)
+import { Component, signal, computed, effect } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { RouterLink } from '@angular/router'; // <-- ¡IMPORTANTE!
 
 @Component({
-  selector: 'app-juego-numeros', 
+  selector: 'app-juego-numeros',
   standalone: true,
-  imports: [ CommonModule, FormsModule ], 
   
-template: `
-    <div class="container"> 
-      <h1>Juego de Números</h1>
-
-      <div class="game-area">
-        
-        <h2 class="mensaje">{{ mensaje }}</h2>
-        
-        <div *ngIf="!juegoTerminado">
-          <label for="intento">Introduce tu número (1-100):</label>
-          <input 
-            type="number" 
-            id="intento" 
-            [(ngModel)]="intento" 
-            min="1" 
-            max="100">
-          
-          <button (click)="adivinar()" class="btn-jugar">Adivinar</button>
-        </div>
-
-        <button *ngIf="juegoTerminado" (click)="reiniciarJuego()" class="btn-jugar">
-          Jugar de nuevo
-        </button>
-        
-        <p class="intentos">Intentos restantes: {{ intentosRestantes }}</p>
-      </div>
-    </div>
-  `,
+  // 2. AÑADE RouterLink a los imports
+  imports: [ CommonModule, RouterLink ], 
+  
+  // 3. BORRA la propiedad 'template: `...`' 
+  //    Y reemplázala por 'templateUrl'
+  templateUrl: './juego-numeros.html', 
+  
   styleUrl: './juego-numeros.css'
 })
-export class JuegoNumeros { // <-- Fíjate que el nombre de la clase puede ser JuegoNumeros o JuegoNumerosComponent
-  
-  // --- PROPIEDADES ---
-  numeroSecreto: number;
-  mensaje: string;
-  intento: number = 0; 
-  intentosRestantes: number = 10;
-  juegoTerminado: boolean = false;
+export class JuegoNumeros {
 
-  // --- CONSTRUCTOR ---
+  //
+  // ¡TODA LA LÓGICA DE SIGNALS (constructor, métodos, etc.)
+  // QUEDA EXACTAMENTE IGUAL QUE ANTES!
+  //
+
+  numeroActual = signal(0);
+  mensaje = signal('🎲 Presiona el botón para empezar');
+  intentos = signal(0);
+  haGanado = signal(false);
+  historial = signal<number[]>([]);
+  puntuacion = signal(0);
+
+  estadoJuego = computed(() => {
+    if (this.haGanado()) return '🎉 ¡GANASTE!';
+    if (this.intentos() === 0) return '🎮 ¡Listo para jugar!';
+    return `🎯 Intento ${this.intentos()}`;
+  });
+
+  nivelDificultad = computed(() => {
+    const intentos = this.intentos();
+    if (intentos < 3) return '🟢 Fácil';
+    if (intentos < 6) return '🟡 Medio';
+    return '🔴 Difícil';
+  });
+
   constructor() {
-    this.numeroSecreto = this.generarNumeroSecreto();
-    this.mensaje = 'Adivina el número secreto entre 1 y 100';
-  }
+    const datosGuardados = localStorage.getItem('juegoNumeros');
+    if (datosGuardados) {
+      const datos = JSON.parse(datosGuardados);
+      this.puntuacion.set(datos.puntuacion || 0);
+    }
+    effect(() => {
+      const datos = {
+        puntuacion: this.puntuacion(),
+        ultimaPartida: new Date().toISOString()
+      };
+      localStorage.setItem('juegoNumeros', JSON.stringify(datos));
+    });
+  } 
 
-  // --- MÉTODOS ---
-  private generarNumeroSecreto(): number {
-    return Math.floor(Math.random() * 100) + 1;
-  }
+  generarNumero() {
+    const nuevoNumero = Math.floor(Math.random() * 10) + 1;
+    this.historial.update(hist => [...hist, nuevoNumero]);
+    this.numeroActual.set(nuevoNumero);
+    this.intentos.update(i => i + 1);
 
-  adivinar(): void {
-    if (this.juegoTerminado) return;
-    
-    this.intentosRestantes--;
-
-    if (this.intento > this.numeroSecreto) {
-      this.mensaje = '¡Muy alto! Intenta de nuevo.';
-    } else if (this.intento < this.numeroSecreto) {
-      this.mensaje = '¡Muy bajo! Intenta de nuevo.';
+    if (nuevoNumero === 7) {
+      const puntos = Math.max(100 - (this.intentos() * 10), 10);
+      this.puntuacion.update(p => p + puntos);
+      this.mensaje.set('🎉 ¡INCREÍBLE! ¡Obtuviste el 7! 🎉');
+      this.haGanado.set(true);
+    } else if (nuevoNumero > 7) {
+      this.mensaje.set('📈 ¡Muy alto! El 7 es menor');
     } else {
-      // Esta era la parte con el error: faltaban llaves
-      this.mensaje = `¡Felicidades! Adivinaste el número (${this.numeroSecreto})`;
-      this.juegoTerminado = true;
+      this.mensaje.set('📉 ¡Muy bajo! El 7 es mayor');
     }
+  } 
 
-    // Esta parte también debe estar DENTRO de adivinar()
-    if (this.intentosRestantes === 0 && !this.juegoTerminado) {
-      this.mensaje = `¡Perdiste! El número secreto era: ${this.numeroSecreto}`;
-      this.juegoTerminado = true;
-    }
-  } // <-- Llave que cierra adivinar()
-
-  reiniciarJuego(): void {
-    this.numeroSecreto = this.generarNumeroSecreto();
-    this.mensaje = 'Adivina el número secreto entre 1 y 100';
-    this.intentosRestantes = 10;
-    this.juegoTerminado = false;
-    this.intento = 0;
-  } // <-- Llave que cierra reiniciarJuego()
-
-} // <-- ESTA ES LA LLAVE FINAL QUE CIERRA LA CLASE
+  reiniciarJuego() {
+    this.numeroActual.set(0);
+    this.mensaje.set('🎲 Presiona el botón para empezar');
+    this.intentos.set(0);
+    this.haGanado.set(false);
+  } 
+}

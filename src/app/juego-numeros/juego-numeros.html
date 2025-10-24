@@ -1,1 +1,80 @@
-<p>juego-numeros works!</p>
+<div class="game-container">
+  <!-- Header del juego -->
+  <header class="game-header">
+    <h1 class="game-title">🎲 Juego del Número Mágico</h1>
+    <p class="game-subtitle">¿Podrás obtener el número 7?</p>
+  </header>
+
+  <!-- Área principal del juego -->
+  <main class="game-board">
+    <!-- Estado del juego -->
+    <div class="status-panel">
+      <div class="status-item">
+        <span class="status-label">Estado:</span>
+        <span class="status-value">{{ estadoJuego() }}</span>
+      </div>
+      <div class="status-item">
+        <span class="status-label">Intentos:</span>
+        <span class="status-value">{{ intentos() }}</span>
+      </div>
+    </div>
+
+    <!-- Display del número -->
+    <div class="number-display" [class.winner]="haGanado()">
+      <div class="number-label">Tu número es:</div>
+      <div class="number-value">
+        {{ numeroActual() === 0 ? '?' : numeroActual() }}
+      </div>
+    </div>
+
+    <!-- Mensaje de feedback -->
+    <div class="message-panel" [class.success]="haGanado()">
+      {{ mensaje() }}
+    </div>
+
+    <!-- Controles del juego -->
+    <div class="game-controls">
+      <button class="btn btn-primary" (click)="generarNumero()" [disabled]="haGanado()">
+        {{ haGanado() ? '🎉 ¡Ganaste!' : '🎲 Lanzar Dado' }}
+      </button>
+
+      <button class="btn btn-secondary" (click)="reiniciarJuego()" *ngIf="intentos() > 0">
+        🔄 Nuevo Juego
+      </button>
+    </div>
+
+    <!-- Estadísticas -->
+    <div class="stats-panel" *ngIf="intentos() > 0">
+      <h3>📊 Estadísticas</h3>
+      <div class="stat-item">
+        <span>Probabilidad de ganar:</span>
+        <span>10% (1 de 10)</span>
+      </div>
+      <div class="stat-item">
+        <span>Tu efectividad:</span>
+        <span>{{ haGanado() ? (100 / intentos()).toFixed(1) : '0' }}%</span>
+      </div>
+    </div>
+
+    <div class="stat-item">
+      <span>Dificultad actual:</span>
+      <span>{{ nivelDificultad() }}</span>
+    </div>
+    <div class="stat-item">
+      <span>Tu efectividad:</span>
+      <span>{{ haGanado() ? (100 / intentos()).toFixed(1) : '0' }}%</span>
+    </div>
+  </main>
+
+  <div class="historial-panel" *ngIf="historial().length > 0">
+    <h3>📜 Historial de Lanzamientos</h3>
+    <div class="historial-numeros">
+      <span *ngFor="let num of historial()">{{ num }}</span>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="game-footer">
+    <a routerLink="/home" class="btn btn-outline">← Volver al Inicio</a>
+  </footer>
+</div>
