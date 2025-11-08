@@ -10,3 +10,28 @@
   --sombra-tarjeta: 0 4px 6px rgba(0, 0, 0, 0.1);
   --sombra-tarjeta-hover: 0 6px 12px rgba(0, 0, 0, 0.15);
 }
+
+#background-video {
+
+  width: 100vw;
+  height: 100vh;
+  object-fit: cover;
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  z-index: -1;
+
+}
+
+/* Asegurandose también de que el body no tenga márgenes
+  que puedan causar barras de scroll inesperadas
+*/
+
+body, html {
+  margin: 0;
+  padding: 0;
+  background-color: transparent; 
+
+}

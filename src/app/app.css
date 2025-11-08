@@ -1,0 +1,8 @@
+:host {
+  display: block; /* Buena práctica */
+  position: relative; /* Para que el z-index funcione */
+  z-index: 1; /* Para que esté sobre el video */
+
+  /* --- LA LÍNEA CLAVE --- */
+  background-color: transparent; 
+}
