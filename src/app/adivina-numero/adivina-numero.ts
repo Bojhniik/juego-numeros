@@ -20,7 +20,7 @@ export class AdivinaNumeroComponent {
   // Signals de estado
   numeroSecreto = signal(this.generarNumero());
   intento = signal<number | null>(null);
-  mensaje = signal('🔮 Adivina el número secreto entre 1 y 100');
+  mensaje = signal('🕵️ Encuentra el número perdido entre 1 y 100');
   intentosRestantes = signal(10);
   juegoTerminado = signal(false);
   haGanado = signal(false);
