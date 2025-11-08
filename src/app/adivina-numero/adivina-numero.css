@@ -1,8 +1,3 @@
-/* CSS Adaptado para el tutorial de Signals 
-  (Mantiene tu tema rojo de #dd0031)
-*/
-
-/* 1. Renombrado de .container a .game-container */
 .game-container {
   max-width: 600px;
   margin: 30px auto;
@@ -10,35 +5,27 @@
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   text-align: center;
 }
-
-/* 2. Estilos para el nuevo Header */
 .game-header {
   margin-bottom: 30px;
 }
-
 .game-title {
-  color: #dd0031;
+  color: #00c3dd;
   font-size: 2.5rem;
   margin-bottom: 10px;
 }
-
 .game-subtitle {
   font-size: 1.2rem;
   color: #666;
   margin: 0;
 }
-
-/* 3. Renombrado de .game-area a .game-board */
 .game-board {
   background: white;
   padding: 40px;
   border-radius: 15px;
   box-shadow: 0 8px 16px rgba(0,0,0,0.1);
   margin-bottom: 30px;
-  border-left: 5px solid #dd0031;
+  border-left: 5px solid #00c3dd;
 }
-
-/* 4. Estilos para el nuevo Status Panel (usa el estilo de .intentos) */
 .status-panel {
   display: flex;
   justify-content: space-around;
@@ -60,8 +47,6 @@
   font-weight: bold;
   color: #333;
 }
-
-/* 5. Adaptado de .numero-display a .number-display (ahora con hijos) */
 .number-display {
   margin: 20px 0;
   padding: 20px;
@@ -74,12 +59,10 @@
 .number-value {
   font-size: 4rem;
   font-weight: bold;
-  color: #dd0031;
+  color: #00c3dd;
   margin: 10px 0;
   text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
 }
-
-/* 6. Renombrado de .mensaje a .message-panel */
 .message-panel {
   font-size: 1.4rem;
   margin: 20px 0;
@@ -91,14 +74,11 @@
   border-radius: 8px;
   padding: 10px;
 }
-/* Nuevo estilo para cuando ganas */
 .message-panel.success {
   background-color: #d4edda;
   color: #155724;
   border: 1px solid #c3e6cb;
 }
-
-/* 7. Estilos para los botones (btn-jugar ahora es .btn-primary) */
 .game-controls {
   margin: 30px 0;
   display: flex;
@@ -106,8 +86,6 @@
   justify-content: center;
   align-items: center;
 }
-
-/* Clase base para botones */
 .btn {
   padding: 15px 30px;
   border: none;
@@ -128,28 +106,22 @@
   transform: none;
   box-shadow: none;
 }
-
-/* Botón principal (antes .btn-jugar) */
 .btn-primary {
-  background-color: #dd0031;
+  background-color: #00c3dd;
   color: white;
 }
 .btn-primary:hover:not(:disabled) {
-  background-color: #c50028;
+  background-color: #0893a5;
 }
-
-/* Botón secundario (este ya coincidía) */
 .btn-secondary {
   background-color: #6c757d;
   color: white;
-  font-size: 1rem; /* Un poco más pequeño */
+  font-size: 1rem;
   padding: 12px 25px;
 }
 .btn-secondary:hover {
   background-color: #5a6268;
 }
-
-/* 8. Estilos para el nuevo Stats Panel (usa el estilo de .intentos) */
 .stats-panel {
   background-color: #f8f9fa;
   padding: 20px;
@@ -173,8 +145,6 @@
 .stat-item:last-child {
   border-bottom: none;
 }
-
-/* 9. Estilos para el nuevo Footer y .btn-outline */
 .game-footer {
   margin-top: 30px;
 }
@@ -193,46 +163,32 @@
   background-color: #6c757d;
   color: white;
 }
-
-/* 10. Adaptada la animación (ahora es .winner y anima al hijo) */
 .winner .number-value {
   animation: celebrar 0.6s ease-in-out infinite alternate;
 }
-
 @keyframes celebrar {
   from { transform: scale(1) rotate(-2deg); }
   to { transform: scale(1.1) rotate(2deg); }
 }
-
-/* ... (Todo el CSS anterior va aquí) ... */
-
-
-/* === CSS NUEVO PARA EL HISTORIAL === */
-
 .historial-panel {
   background-color: #fff;
   padding: 20px 30px;
   border-radius: 15px;
   box-shadow: 0 8px 16px rgba(0,0,0,0.1);
   margin-bottom: 30px;
-  /* Usamos el color rojo para el borde */
-  border-top: 4px solid #dd0031; 
+  border-top: 4px solid #00c3dd;
 }
-
 .historial-panel h3 {
   margin-top: 0;
   margin-bottom: 20px;
-  color: #dd0031;
+  color: #00c3dd;
 }
-
 .historial-numeros {
   display: flex;
   flex-wrap: wrap;
   gap: 12px;
   justify-content: center;
 }
-
-/* Usamos el estilo 'intentos' que ya tenías */
 .historial-numeros span {
   display: inline-block;
   padding: 5px 12px;
@@ -242,4 +198,128 @@
   font-weight: bold;
   min-width: 30px;
   font-size: 0.9rem;
+}
+
+
+/* ESTILOS PARA "ADIVINA-NUMERO" */
+/* Estilo para el input de adivinar */
+
+.game-input.form-control {
+  font-size: 1.2rem;
+  padding: 15px 20px;
+  border-radius: 30px;
+  border: 1px solid #ccc;
+  text-align: center;
+  max-width: 250px;
+  /* Quita las flechas de número en Chrome/Safari */
+  -webkit-appearance: textfield;
+     -moz-appearance: textfield;
+          appearance: textfield;
+}
+
+/* Estilo para el mensaje de "perdiste" */
+.message-panel.danger {
+  background-color: #f8d7da;
+  color: #721c24;
+  border: 1px solid #f5c6cb;
+}
+
+/* --- ESTILOS PARA "ADIVINA-NUMERO" --- */
+
+/* Estilo para el input de adivinar */
+.game-input.form-control {
+  font-size: 1.2rem;
+  padding: 15px 20px;
+  border-radius: 30px;
+  border: 1px solid #ccc;
+  text-align: center;
+  max-width: 250px;
+  -webkit-appearance: textfield;
+     -moz-appearance: textfield;
+          appearance: textfield;
+}
+
+/* Estilo para el mensaje de "perdiste" */
+.message-panel.danger {
+  background-color: #f8d7da;
+  color: #721c24;
+  border: 1px solid #f5c6cb;
+}
+
+/* --- ESTILO PARA HISTORIALES Y PISTA --- */
+
+/* Historial de la partida actual (fondo simple) */
+.historial-panel.intentos-partida {
+  background-color: #f8f9fa; /* Fondo gris claro */
+  border-radius: 10px;
+  padding: 15px;
+  margin-top: 25px;
+  border: 1px solid #eee;
+}
+.historial-panel.intentos-partida h3 {
+  margin-top: 0;
+  margin-bottom: 15px;
+  color: #333; /* Texto oscuro simple */
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+/* Historial de números secretos */
+.historial-panel.secretos {
+  margin-top: 15px;
+  border-top: 4px solid #00c3dd;
+}
+
+/* Re-estila los 'span' del historial de secretos para que parezcan badges */
+.historial-panel.secretos .historial-numeros span {
+  font-weight: 600;
+  font-size: 0.9rem;
+  padding: 6px 12px;
+  border-radius: 20px;
+  min-width: 60px; /* Un poco más de espacio para el emoji */
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  border: 1px solid transparent;
+}
+
+/* Verde para Adivinado (como 'Activo') */
+.historial-panel.secretos .historial-numeros span.adivinado-si {
+  background-color: #d4edda; /* Verde pálido */
+  color: #155724; /* Verde oscuro */
+  border-color: #c3e6cb;
+}
+
+/* Rojo para No Adivinado (como 'Inactivo') */
+.historial-panel.secretos .historial-numeros span.adivinado-no {
+  background-color: #f8d7da; /* Rojo pálido */
+  color: #721c24; /* Rojo oscuro */
+  border-color: #f5c6cb;
+}
+
+/* Estilo para el mensaje de la pista */
+.pista-mensaje {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #856404; /* Color de advertencia (amarillo/marrón) */
+  background-color: #fff3cd;
+  border: 1px solid #ffeeba;
+  padding: 10px;
+  border-radius: 8px;
+  margin: -10px auto 20px auto;
+  max-width: 80%;
+}
+
+/* Contenedor para el botón de pista */
+.pista-control {
+  margin-top: -10px;
+  margin-bottom: 20px;
+}
+.pista-control .btn-warning {
+  background-color: #fff3cd;
+  color: #000;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  padding: 8px 15px;
+}
+.pista-control .btn-warning:hover {
+  background-color: #e0a800;
 }

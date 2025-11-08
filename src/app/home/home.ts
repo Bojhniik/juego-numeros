@@ -12,5 +12,6 @@ import { RouterLink } from '@angular/router';
 export class HomeComponent {
   title = '¡Hola Mundo con Angular!';
   mensaje = 'Esta es mi primera aplicación Angular con routing y componentes standalone.';
+
 }
 

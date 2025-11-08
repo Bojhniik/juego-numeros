@@ -1,1 +1,12 @@
-/* You can add global styles to this file, and also import other style files */
+:root {
+  --color-angular-red: #dd0031;
+  --color-juego1-green: #04ff25;
+  --color-juego1-hover: #05a71a;
+  --color-juego2-blue: #00c3dd;
+  --color-juego2-hover: #0893a5;
+  --color-texto-oscuro: #333;
+  --color-texto-claro: #555;
+  --color-fondo-claro: #ffffff;
+  --sombra-tarjeta: 0 4px 6px rgba(0, 0, 0, 0.1);
+  --sombra-tarjeta-hover: 0 6px 12px rgba(0, 0, 0, 0.15);
+}

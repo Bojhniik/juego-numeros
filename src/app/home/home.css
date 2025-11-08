@@ -6,15 +6,21 @@
 }
 
 h1 {
-  color: #dd0031;
+  color: var(--color-angular-red);
   font-size: 2.5rem;
   margin-bottom: 20px;
   text-align: center;
 }
 
-p {
+h2 {
+  color: var(--color-angular-red);
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.page-description {
   font-size: 1.2rem;
-  color: #333;
+  color: var(--color-texto-oscuro);
   text-align: center;
   margin-bottom: 40px;
   line-height: 1.6;
@@ -22,22 +28,52 @@ p {
 
 .card-container {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
   gap: 2rem;
   margin-top: 2rem;
+  margin-left: auto; /* Centra horizontalmente */
+  margin-right: auto; /* Centra horizontalmente */
+  margin-top: 1rem; /* Un poco de espacio extra arriba */
 }
 
+/* Clase genérica para TODAS las tarjetas */
 .card {
-  background: white;
+  background: var(--color-fondo-claro);
   border-radius: 10px;
   padding: 2rem;
-  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-  border-left: 4px solid #dd0031;
+  box-shadow: var(--sombra-tarjeta);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--sombra-tarjeta-hover);
+}
+
+/* Modificadores para los bordes y títulos */
+.card--border-green { border-left: 4px solid var(--color-juego1-green); }
+.card--border-blue  { border-left: 4px solid var(--color-juego2-blue); }
+.card--border-red   { border-left: 4px solid var(--color-angular-red); }
+
+.card--border-green h3 { color: var(--color-juego1-green); }
+.card--border-blue h3  { color: var(--color-juego2-blue); }
+.card--border-red h3   { color: var(--color-angular-red); }
+
+/* Estilos genéricos para el contenido de las tarjetas */
 .card h3 {
-  color: #dd0031;
+  margin-top: 0;
   margin-bottom: 1rem;
+}
+
+.card p, 
+.card ul {
+  color: var(--color-texto-claro);
+  text-align: left;
+  flex-grow: 1; 
+  margin-bottom: 1.5rem;
 }
 
 .card ul {
@@ -46,12 +82,20 @@ p {
 
 .card li {
   margin: 0.5rem 0;
-  color: #555;
 }
 
-.btn-primary {
+/* La roja */
+.card-angular-single {
+  grid-column: 1 / -1; /* Ocupa desde la primera columna hasta la última */
+  min-width: 500px; 
+  margin-left: auto; /* Centra horizontalmente */
+  margin-right: auto; /* Centra horizontalmente */
+  margin-top: 1rem; /* Un poco de espacio extra arriba */
+}
+
+/* Clase genérica para TODOS los botones de juego */
+.btn-juego {
   display: inline-block;
-  background-color: #dd0031;
   color: white;
   padding: 12px 24px;
   text-decoration: none;
@@ -59,10 +103,35 @@ p {
   font-weight: bold;
   transition: all 0.3s ease;
   margin-top: 1rem;
+  text-align: center;
+  border: none;
+  cursor: pointer;
 }
 
-.btn-primary:hover {
-  background-color: #c50028;
+.btn-juego:hover {
   transform: translateY(-2px);
   box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+/* Modificadores para los colores de los botones */
+.btn-juego--green {
+  background-color: var(--color-juego1-green);
+}
+.btn-juego--green:hover {
+  background-color: var(--color-juego1-hover);
+}
+
+.btn-juego--blue {
+  background-color: var(--color-juego2-blue);
+}
+.btn-juego--blue:hover {
+  background-color: var(--color-juego2-hover);
+}
+
+/* En pantallas muy pequeñas (cuando las tarjetas ya están en una columna),
+   no necesitamos el max-width, solo que se centre. */
+@media (max-width: 768px) {
+  .card-angular-single {
+    max-width: 100%; /* Ocupa todo el ancho disponible */
+  }
 }

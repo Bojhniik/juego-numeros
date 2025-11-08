@@ -1,15 +1,23 @@
 <div class="container">
     <h1>{{ title }}</h1>
-    <p>{{ mensaje }}</p>
+    <p class="page-description">{{ mensaje }}</p>
+    <h2>¡Bienvenido al Centro de Juegos!</h2>
 
     <div class="card-container">
-        <div class="card">
-            <h3>🎲 Juego de Números</h3>
+        
+        <div class="card card--border-green">
+            <h3>🎲 Juego del Número Mágico</h3>
             <p>¿Podrás obtener el número 7? ¡Pon a prueba tu suerte!</p>
-            <a routerLink="/juego-numeros" class="btn-primary">Jugar Ahora</a>
+            <a routerLink="/juego-numeros" class="btn-juego btn-juego--green">Jugar Ahora</a>
         </div>
 
-        <div class="card">
+        <div class="card card--border-blue">
+            <h3>🔮 El Número perdido</h3>
+            <p>¿Podrás adivinar el número secreto? ¡Pon a prueba tu ingenio!</p>
+            <a routerLink="/adivina_numero" class="btn-juego btn-juego--blue">Jugar Ahora</a>
+        </div>
+
+        <div class="card card--border-red card-angular-single">
             <h3>📚 Sobre Angular</h3>
             <ul>
                 <li>Framework desarrollado por Google</li>

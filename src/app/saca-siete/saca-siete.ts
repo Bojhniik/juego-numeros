@@ -14,9 +14,10 @@ import { RouterLink } from '@angular/router'; // <-- ¡IMPORTANTE!
   
   // 3. BORRA la propiedad 'template: `...`' 
   //    Y reemplázala por 'templateUrl'
-  templateUrl: './juego-numeros.html', 
+
+  templateUrl: './saca-siete.html', 
+  styleUrl: './saca-siete.css'
   
-  styleUrl: './juego-numeros.css'
 })
 export class JuegoNumeros {
 

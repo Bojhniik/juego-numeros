@@ -1,0 +1,89 @@
+<div class="game-container">
+  <header class="game-header">
+    <h1 class="game-title">🔮 Adivina el Número</h1>
+    <p class="game-subtitle">Adivina un número secreto entre 1 y 100 🕵️</p>
+  </header>
+
+  <main class="game-board">
+    <div class="status-panel">
+      <div class="status-item">
+        <span class="status-label">🎯 Intentos Restantes:</span>
+        <span class="status-value">{{ intentosRestantes() }}</span>
+      </div>
+    </div>
+
+    <div class="message-panel" 
+         [class.success]="haGanado()" 
+         [class.danger]="juegoTerminado() && !haGanado()">
+      {{ mensaje() }}
+    </div>
+
+    @if (pista()) {
+      <p class="pista-mensaje">{{ pista() }}</p>
+    }
+
+    <div class="game-controls">
+      @if (!juegoTerminado()) {
+        <input 
+          type="number" 
+          class="form-control game-input" 
+          placeholder="Escribe tu número... 🤔"
+          [(ngModel)]="intento"
+          (keyup.enter)="adivinar()">
+        
+        <button 
+          class="btn btn-primary" 
+          (click)="adivinar()" 
+          [disabled]="intento() === null || juegoTerminado()">
+          🔍 Adivinar
+        </button>
+      } @else {
+        <button class="btn btn-secondary" (click)="reiniciarJuego()">
+          🔄 Nuevo Juego
+        </button>
+      }
+    </div>
+
+    @if (!juegoTerminado() && intentosRestantes() > 3 && !pista()) {
+      <div class="pista-control">
+        <button class="btn btn-warning btn-sm" (click)="darPista()">
+          💡 Pedir Pista (-3 intentos)
+        </button>
+      </div>
+    }
+
+    @if (historialIntentos().length > 0) {
+      <div class="historial-panel intentos-partida">
+        <h3>📜 Tus Intentos:</h3>
+        <div class="historial-numeros">
+          @for (num of historialIntentos(); track $index) {
+            <span>{{ num }}</span>
+          }
+        </div>
+      </div>
+    }
+  </main>
+@if (historialSecretos().length > 0) {
+    <div class="historial-panel secretos">
+      <h3>🔑 Números Anteriores:</h3>
+      <div class="historial-numeros">
+        
+        @for (registro of historialSecretos(); track $index) {
+          
+          <span 
+            [class.adivinado-si]="registro.adivinado"
+            [class.adivinado-no]="!registro.adivinado">
+            
+            {{ registro.numero }}
+            
+            {{ registro.adivinado ? '✅' : '❌' }}
+          </span>
+        }
+      </div>
+    </div>
+  }
+
+  <footer class="game-footer">
+    <a routerLink="/" class="btn btn-outline">← Volver al Inicio</a>
+  </footer>
+</div>
